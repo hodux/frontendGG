@@ -12,7 +12,7 @@ import ResetPassword from './components/ResetPassword';
 import Catalogue from './components/Catalogue';
 import AddClient from "./components/AddClient";
 import ListClient from "./components/ListClient";
-
+import RecipeResult from "./components/RecipeResult";
 import RecipeDetail from './components/RecipeDetail'; 
 import RecipeForm from './components/RecipeForm'
 
@@ -36,6 +36,7 @@ function App() {
           <Route path="/listClts" element={<ListClient />} />
           <Route path='/catalogue/:recipeName' element={<RecipeDetail/>} />
           <Route path="/recipeForm" element={<RecipeForm />} />
+          <Route path="/your_results" element={<RecipeResult />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './recipeform.css';
-
 
 function RecipeForm() {
 
@@ -35,7 +35,11 @@ const handleTime = (event) => {
     setTime(event.target.value);
 }
 
+const navigate = useNavigate();
 const [weightError, setWeightError] = useState();
+
+const testdata = { name: "John", age: 30 };
+
 const handleSubmit = (event) => {
     event.preventDefault();
     try {
@@ -47,12 +51,14 @@ const handleSubmit = (event) => {
             setWeightError("Veuillez entrer votre poids.");
         } else {
             setWeightError("");
+            navigate('/your_results', { state: testdata });
         }
     } catch (error) {
         console.log(error)
     } finally {
         console.log(weight,preference,goal,time)
     }
+
 }
 
 return (
@@ -88,7 +94,7 @@ return (
                         <label class="form-label">Votre objectif à long terme.</label>
                         <select class="form-select" aria-label="Default select example" onChange={handleGoal}>
                             <option value="0" selected>Aucun</option>
-                            <option value="1">Privilégiez les repas faibles en calories pour perte de poids</option>
+                            <option value="1">Privilégiez les repas faibles en calories pour la perte de poids</option>
                             <option value="2">Repas riches en calories pour prendre du poids</option>
 
                         </select>
