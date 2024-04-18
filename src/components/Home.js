@@ -39,11 +39,11 @@ function Home() {
                 <p class="px-5">Grimace Gastronomy est une application innovante conçue pour simplifier le processus de recherche de recettes culinaires en fonction des préférences et buts alimentaires de chaque individu.</p>
                 </div>
                 <div class="col-12 col-lg-4">
-                <p class="px-5">Que vous soyez végétarien, végétalien ou simplement à la recherche de nouvelles idées pour votre alimentation quotidienne, GG est votre compagnon idéal pour explorer des recettes délicieuses et adaptées à vos besoins spécifiques!</p>
+                <p class="px-5 mb-2">Que vous soyez végétarien, végétalien ou simplement à la recherche de nouvelles idées pour votre alimentation quotidienne, GG est votre compagnon idéal pour explorer des recettes délicieuses et adaptées à vos besoins spécifiques!</p>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row mt-2">
                 <a class="col-6 text-start" href="signUp">Create your account!</a>
                 <a class="col-6 text-end" href="/signIn">Already a user?</a>
             </div>

@@ -1,8 +1,9 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
+import './catalogue.css'
 
-function RecipeResult() {
+function Catalogue() {
     const location = useLocation();
     const [preferenceDesc, setPreferenceDesc] = useState("");
     const [goalDesc, setGoalDesc] = useState("");
@@ -39,13 +40,6 @@ function RecipeResult() {
         }
     }
 
-    useEffect(() => {
-        handleDescription();
-    }, []);
-
-
-    // Get recipes
-
     const [recipes, setrecipes] = useState([]);
 
     const getAllrecipes = () => {
@@ -58,29 +52,31 @@ function RecipeResult() {
             });
     }
 
+ 
     useEffect(() => {
+        handleDescription();
         getAllrecipes();
     }, []);
 
     return (
-        <div className="text-center mt-5 p-2">
+        <div className='container mt-4 container-recipes text-center p-2'>
             <h2>Vous pesez {location.state.weight} lbs, vos plats serons {preferenceDesc}, vous souhaitez {goalDesc} et le temps maximum par repas sera {tempsDesc}.</h2>
             <h3 className="pt-3"><u>Voici nos recommendations!</u></h3>
             <div className='row'>
                 {recipes.map((recipe) => (
-                    <div className='col-lg-4 col-md-6 mb-4'>
-                       <Link to={`/catalogue/${recipe.recipe_name.replace(/\s+/g, '-')}`} style={{ textDecoration: 'none' }}>
+                    <div className='col-lg-4 col-md-6 mb-4' key={recipe.recipe_ID}>
+                        <Link to={`/catalogue/${recipe.recipe_ID}`}  className='link'>
                             <div className='card'>
-                                <img className='card-img-top' src={recipe.img} alt={recipe.recipe_name} style={{ height: '350px' }} />
-                                <div className='card-body' style={{height: '200px'}}>
-                                    <h5 className='card-title mt-2'>{recipe.recipe_name}</h5>
-                                    <p className='card-text mt-2'>Calories: {recipe.calories}</p>
+                                <img className='imageCatalogue' src={recipe.img} alt={recipe.recipe_name}/>
+                                <div className='card-body'>
+                                    <h5 className='mt-2 recipe-name'>{recipe.recipe_name}</h5>
+                                    <p className='mt-2'>Calories: {recipe.calories}</p>
+                                    <p className='mt-2'>{recipe.descriptions}</p>
+                                    <p className='text-end mt-4 duration'><i className="bi bi-clock"></i> {recipe.preparationTime}</p>
 
-                                    <p className='card-text mt-2'>{recipe.descriptions}</p>
-                                    <p className='card-text text-end mt-4'><i class="bi bi-clock"></i> {recipe.preparationTime}</p>
                                 </div>
                             </div>
-                       </Link>
+                        </Link>
                     </div>
                 ))}
             </div>
@@ -88,4 +84,4 @@ function RecipeResult() {
     );
 }
 
-export default RecipeResult;
+export default Catalogue;

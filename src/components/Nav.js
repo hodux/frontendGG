@@ -28,7 +28,7 @@ function Nav() {
                                    href="/catalogue" onClick={() => handleNavLinkClick('/recipes')}>Catalogue</a>
                             </li>
                             <li className="nav-item">
-                                <a className={`nav-link ${activePage === '/formtest' ? 'active' : ''}`}
+                                <a className={`nav-link ${activePage === '/recipeForm' ? 'active' : ''}`}
                                    href="/recipeForm" onClick={() => handleNavLinkClick('/recipeForm')}>Formulaire</a>
                             </li>
                             <li className="nav-item">

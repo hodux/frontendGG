@@ -34,7 +34,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/addClts" element={<AddClient />} />
           <Route path="/listClts" element={<ListClient />} />
-          <Route path='/catalogue/:recipeName' element={<RecipeDetail/>} />
+          <Route path='/catalogue/:recipe_ID' element={<RecipeDetail/>} />
           <Route path="/recipeForm" element={<RecipeForm />} />
           <Route path="/your_results" element={<RecipeResult />} />
         </Routes>
