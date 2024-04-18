@@ -38,8 +38,6 @@ const handleTime = (event) => {
 const navigate = useNavigate();
 const [weightError, setWeightError] = useState();
 
-const testdata = { name: "John", age: 30 };
-
 const handleSubmit = (event) => {
     event.preventDefault();
     try {
@@ -51,7 +49,7 @@ const handleSubmit = (event) => {
             setWeightError("Veuillez entrer votre poids.");
         } else {
             setWeightError("");
-            navigate('/your_results', { state: testdata });
+            navigate('/your_results', { state: { weight: weight, preference: preference, goal: goal, time: time } });
         }
     } catch (error) {
         console.log(error)
