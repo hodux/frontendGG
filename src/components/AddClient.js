@@ -63,7 +63,6 @@ function CreateClient() {
                                 if (usernameResponse.data) {
                                     setErrors({...errors, username: "Nom d'utilisateur déjà utilisé"});
                                 } else {
-                                    // Email and username are available, proceed with creating the client
                                     axios.post("http://localhost:7373/crc", client)
                                         .then((res) => {
                                             console.log("Client ajouté");
@@ -91,7 +90,8 @@ function CreateClient() {
         <div className="mt-5 container border-0">
             <div className="card">
                 <div className='card-header'>
-                    Connexion:
+                    <h3>Création de compte:</h3>
+
                 </div>
                 <div className='card-header bg-white'>
                     <form onSubmit={submitNewClient}>

@@ -87,63 +87,65 @@ function ClientList() {
     }, []);
 
     return (
-        <div className="container mt-3">
+        <div className="container border-0 mt-3">
             <h2 className="mt-5 mb-4">Client List</h2>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>Username</th>
-                    <th>Pwd</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {users.map((user) => (
-                    <tr key={user.idUser}>
-                        <td>{user.idUser}</td>
-                        <td>{editingUserId === user.idUser ?
-                            <input type="text" name="first_name" value={updatedUser.first_name}
-                                   onChange={handleInputChange} className="form-control" /> :
-                            user.first_name}</td>
-                        <td>{editingUserId === user.idUser ?
-                            <input type="text" name="last_name" value={updatedUser.last_name}
-                                   onChange={handleInputChange} className="form-control" /> :
-                            user.last_name}</td>
-                        <td>{editingUserId === user.idUser ?
-                            <input type="text" name="username" value={updatedUser.username}
-                                   onChange={handleInputChange} className="form-control" /> :
-                            user.username}</td>
-                        <td>{editingUserId === user.idUser ?
-                            <input type="text" name="passwd" value={updatedUser.passwd}
-                                   onChange={handleInputChange} className="form-control" /> :
-                            user.passwd}</td>
-                        <td>{editingUserId === user.idUser ?
-                            <input type="text" name="email" value={updatedUser.email}
-                                   onChange={handleInputChange} className="form-control" /> :
-                            user.email}</td>
-
-                        <td>
-                            {editingUserId === user.idUser ? (
-                                <>
-                                    <button onClick={() => updateClientById(user.idUser)}
-                                            className="btn btn-success m-1">Save
-                                    </button>
-                                    <button onClick={cancelEdit} className="btn btn-danger m-1">Cancel</button>
-                                </>
-                            ) : (
-                                <button className="btn btn-primary m-1" onClick={() => setEditUser(user)}>Edit</button>
-                            )}
-                            <button className="btn btn-danger m-1" onClick={() => deleteUserById(user.idUser)}>Delete
-                            </button>
-                        </td>
+            <div className="table-responsive">
+                <table className="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Username</th>
+                        <th>Pwd</th>
+                        <th>Email</th>
+                        <th>Action</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {users.map((user) => (
+                        <tr key={user.idUser}>
+                            <td>{user.idUser}</td>
+                            <td>{editingUserId === user.idUser ?
+                                <input type="text" name="first_name" value={updatedUser.first_name}
+                                       onChange={handleInputChange} className="form-control" /> :
+                                user.first_name}</td>
+                            <td>{editingUserId === user.idUser ?
+                                <input type="text" name="last_name" value={updatedUser.last_name}
+                                       onChange={handleInputChange} className="form-control" /> :
+                                user.last_name}</td>
+                            <td>{editingUserId === user.idUser ?
+                                <input type="text" name="username" value={updatedUser.username}
+                                       onChange={handleInputChange} className="form-control" /> :
+                                user.username}</td>
+                            <td>{editingUserId === user.idUser ?
+                                <input type="text" name="passwd" value={updatedUser.passwd}
+                                       onChange={handleInputChange} className="form-control" /> :
+                                user.passwd}</td>
+                            <td>{editingUserId === user.idUser ?
+                                <input type="text" name="email" value={updatedUser.email}
+                                       onChange={handleInputChange} className="form-control" /> :
+                                user.email}</td>
+
+                            <td>
+                                {editingUserId === user.idUser ? (
+                                    <>
+                                        <button onClick={() => updateClientById(user.idUser)}
+                                                className="btn btn-success m-1">Save
+                                        </button>
+                                        <button onClick={cancelEdit} className="btn btn-danger m-1">Cancel</button>
+                                    </>
+                                ) : (
+                                    <button className="btn btn-primary m-1" onClick={() => setEditUser(user)}>Edit</button>
+                                )}
+                                <button className="btn btn-danger m-1" onClick={() => deleteUserById(user.idUser)}>Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
