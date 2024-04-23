@@ -52,15 +52,40 @@ function CreateClient() {
     const submitNewClient = (e) => {
         e.preventDefault();
         if (validateForm()) {
-            axios.post("http://localhost:7373/crc", client)
-                .then((res) => {
-                    console.log("Client ajouté");
-                    navigate("/signIn");
-                }).catch((error) => {
-                console.log(error);
-            });
+            axios.get(`http://localhost:7373/checkemail/${client.email}`)
+                .then((emailResponse) => {
+                    if (emailResponse.data) {
+                        setErrors({...errors, email: "Email déjà utilisé"});
+                        setErrors({...errors, email: "Email déjà utilisé"});
+                    } else {
+                        axios.get(`http://localhost:7373/checkusername/${client.username}`)
+                            .then((usernameResponse) => {
+                                if (usernameResponse.data) {
+                                    setErrors({...errors, username: "Nom d'utilisateur déjà utilisé"});
+                                } else {
+                                    // Email and username are available, proceed with creating the client
+                                    axios.post("http://localhost:7373/crc", client)
+                                        .then((res) => {
+                                            console.log("Client ajouté");
+                                            navigate("/signIn");
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        });
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     };
+
+
 
     return (
         <div className="mt-5 container border-0">
@@ -68,7 +93,7 @@ function CreateClient() {
                 <div className='card-header'>
                     Connexion:
                 </div>
-                <div className='card-body'>
+                <div className='card-header bg-white'>
                     <form onSubmit={submitNewClient}>
                         <div className="mb-3">
                             <label className="form-label">Email</label>
@@ -124,8 +149,7 @@ function CreateClient() {
                                    value={client.confirmPasswd}/>
                             {errors.confirmPasswd && <div className="text-danger">{errors.confirmPasswd}</div>}
                         </div>
-
-                        <button className="btn btn-primary mt-3">Ajouter client</button>
+                        <button className="btn btn-primary mt-3">Créer</button>
                     </form>
                 </div>
             </div>
