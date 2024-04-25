@@ -8,7 +8,6 @@ function Home() {
     return (
         <>
         <body>
-
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner justify-content-center">
                 <div class="carousel-item active ">
@@ -31,7 +30,7 @@ function Home() {
             </button>
             </div>
 
-            <div class="container container-home mt-5">
+            <div class="container border-0 mt-5">
 
             <div class="text-center row mt-4 border-bottom border-secondary">
                 <div class="col-12 col-lg-8">
