@@ -8,59 +8,59 @@ function Catalogue() {
     const [preferenceDesc, setPreferenceDesc] = useState("");
     const [goalDesc, setGoalDesc] = useState("");
     const [tempsDesc, setTempsDesc] = useState("");
-    const handleDescription = () => {
+    const [recipes, setRecipes] = useState([]);
+
+    function handleRecommendations() {
+        // Custom Phrase
         try {
-            if (location.state.preference == 0) {
+            const preference = parseInt(location.state.preference)
+            const goal = parseInt(location.state.goal)
+            const time = parseInt(location.state.time)
+            if (preference === 0) {
                 setPreferenceDesc("diverse")
-            } else if (location.state.preference == 1) {
+            } else if (preference === 1) {
                 setPreferenceDesc("strictement Végétarien")
-            } else if (location.state.preference == 2) {
+            } else if (preference === 2) {
                 setPreferenceDesc("strictement Végétalien")
             }
-    
-            if (location.state.goal == 0) {
+            if (goal === 0) {
                 setGoalDesc("ni gain ou perte de poids")
-            } else if (location.state.goal == 1) {
+            } else if (goal === 1) {
                 setGoalDesc("perdre du poids")
-            } else if (location.state.goal == 2) {
+            } else if (goal === 2) {
                 setGoalDesc("obtenir du poids")
             }
-    
-            if (location.state.time == 0) {
+            if (time === 0) {
                 setTempsDesc("sans importance")
-            } else if (location.state.time == 1) {
+            } else if (time === 1) {
                 setTempsDesc("30 minutes")
-            } else if (location.state.time == 2) {
+            } else if (time === 2) {
                 setTempsDesc("60 minutes")
-            } else if (location.state.time == 3) {
+            } else if (time === 3) {
                 setTempsDesc("120 minutes")
             }
         } catch (error) {
             console.log(error)
         }
-    }
 
-    const [recipes, setrecipes] = useState([]);
-
-    const getAllrecipes = () => {
+        // Get corresponding recipes
         axios.get("http://localhost:7373/getrec")
             .then((res) => {
-                setrecipes(res.data);
+                setRecipes(res.data);
             })
             .catch((error) => {
                 console.log(error);
-            });
+        });
+
     }
 
- 
     useEffect(() => {
-        handleDescription();
-        getAllrecipes();
-    }, []);
+        handleRecommendations()
+    }, );
 
     return (
         <div className='container mt-4 container-recipes text-center p-2'>
-            <h2>Vous pesez {location.state.weight} lbs, vos plats serons {preferenceDesc}, vous souhaitez {goalDesc} et le temps maximum par repas sera {tempsDesc}.</h2>
+            <h2>Vous pesez {location.state.weight} lbs, vos plats seront {preferenceDesc}, vous souhaitez {goalDesc} et le temps maximum par repas sera {tempsDesc}.</h2>
             <h3 className="pt-3"><u>Voici nos recommendations!</u></h3>
             <div className='row'>
                 {recipes.map((recipe) => (
