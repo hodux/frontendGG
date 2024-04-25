@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
-import './catalogue.css'
+import './catalogue.css';
 
 function Catalogue() {
     const location = useLocation();
@@ -44,18 +44,24 @@ function Catalogue() {
         }
 
         // Get corresponding recipes
-        axios.get("http://localhost:7373/getrec")
-            .then((res) => {
-                setRecipes(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-        });
+        //axios.get(`http://localhost:7373/getrec/${goal}/${time}`, {
+        //    params : {
+        //        isVegan : true,
+        //    }})
+        //   .then((res) => {
+        //        setRecipes(res.data);
+        //        console.log(res.data);
+        //    }).catch((error) => {
+        //    console.log(error);
+        //});
+
+
 
     }
 
     useEffect(() => {
         handleRecommendations()
+
     }, );
 
     return (
