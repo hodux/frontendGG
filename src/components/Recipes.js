@@ -97,7 +97,7 @@ function Recipe() {
         <div className="container border-0 mt-3">
             <h2 className="mt-5 mb-4">Recipe List</h2>
             <div className="table-responsive">
-                <table className="table">
+                <table className="table table-bordered">
                     <thead>
                     <tr>
                         <th>ID</th>

@@ -21,7 +21,7 @@ function Catalogue() {
     }, []);
 
     return (
-        <div className='container mt-4 container-recipes'>
+        <div className='container  mt-4 border-0'>
             <h2 className='text-center mb-4'>Catalogue</h2>
             <div className='row'>
                 {recipes.map((recipe) => (

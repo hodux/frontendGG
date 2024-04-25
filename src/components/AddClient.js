@@ -56,12 +56,11 @@ function CreateClient() {
                 .then((emailResponse) => {
                     if (emailResponse.data) {
                         setErrors({...errors, email: "Email déjà utilisé"});
-                        setErrors({...errors, email: "Email déjà utilisé"});
                     } else {
                         axios.get(`http://localhost:7373/checkusername/${client.username}`)
                             .then((usernameResponse) => {
                                 if (usernameResponse.data) {
-                                    setErrors({...errors, username: "Nom d'utilisateur déjà utilisé"});
+                                    setErrors({...errors, username: "Nom d'utilisateur déjà utilisé", email:""});
                                 } else {
                                     axios.post("http://localhost:7373/crc", client)
                                         .then((res) => {
