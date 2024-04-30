@@ -1,141 +1,159 @@
-import { useState } from "react";
-import '../css/signUp.css'
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function SignUp() {
+function CreateClient() {
+    const [client, setClient] = useState({
+        first_name: "",
+        last_name: "",
+        username: "",
+        passwd: "",
+        confirmPasswd: "", // Add confirmation field
+        email: ""
+    });
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
-    const [inputValuePassword, setInputValuePassword] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-
-    const handleInputChangePassword = (event) => {
-        setInputValuePassword(event.target.value)
-    }
-
-    const [inputValuePassword2, setInputValuePassword2] = useState("");
-    const [passwordError2, setPasswordError2] = useState("");
-
-    const handleInputChangePassword2 = (event) => {
-        setInputValuePassword2(event.target.value)
-    }
-
-    const [inputValueEmail, setinputValueEmail] = useState("");
-    const [emailError, setEmailError] = useState("");
-
-    const handleInputChangeEmail = (event) => {
-        setinputValueEmail(event.target.value);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setClient({ ...client, [name]: value });
     };
 
-    const [InputValueFirstName, setInputValueFirstName] = useState("");
-    const [firstNameError, setFirstNameError] = useState("");
-
-    const handleChangeFirstName = (event) => {
-        setInputValueFirstName(event.target.value);
+    const validateForm = () => {
+        const errors = {};
+        if (!client.first_name) {
+            errors.first_name = "Prénom est requis";
+        }
+        if (!client.last_name) {
+            errors.last_name = "Nom est requis";
+        }
+        if (!client.username) {
+            errors.username = "Nom d'utilisateur est requis";
+        }
+        if (!client.passwd) {
+            errors.passwd = "Mot de passe est requis";
+        } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(client.passwd)) {
+            errors.passwd = "Entrer un mot de passe valide s'il vous plait! Au moins 8 caractères, Contient au moins un chiffre (0-9), Contient au moins une lettre minuscule (a-z), Contient au moins une lettre majuscule (A-Z)";
+        }
+        if (!client.confirmPasswd) {
+            errors.confirmPasswd = "Confirmer le mot de passe est requis";
+        } else if (client.confirmPasswd !== client.passwd) {
+            errors.confirmPasswd = "Les mots de passe ne correspondent pas";
+        }
+        if (!client.email) {
+            errors.email = "Email est requis";
+        } else if (!/^\S+@\S+\.\S+$/.test(client.email)) {
+            errors.email = "Email invalide";
+        }
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
     };
 
-    const [InputValueLastName, setInputValueLastName] = useState("");
-    const [lastNameError, setLastNameError] = useState("");
-
-    const handleChangeLastName = (event) => {
-        setInputValueLastName(event.target.value);
+    const submitNewClient = (e) => {
+        e.preventDefault();
+        if (validateForm()) {
+            axios.get(`http://localhost:7373/checkemail/${client.email}`)
+                .then((emailResponse) => {
+                    if (emailResponse.data) {
+                        setErrors({...errors, email: "Email déjà utilisé"});
+                    } else {
+                        axios.get(`http://localhost:7373/checkusername/${client.username}`)
+                            .then((usernameResponse) => {
+                                if (usernameResponse.data) {
+                                    setErrors({...errors, username: "Nom d'utilisateur déjà utilisé", email:""});
+                                } else {
+                                    axios.post("http://localhost:7373/addUser", client)
+                                        .then((res) => {
+                                            console.log("Client ajouté");
+                                            navigate("/signIn");
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        });
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     };
 
-    const [inputValueUsername, setInputValueUsername] = useState("");
-    const [usernameError, setUsernameError] = useState("");
-
-    const handleInputChangeUsername = (event) => {
-        setInputValueUsername(event.target.value);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (inputValuePassword !== inputValuePassword2) {
-            setPasswordError2("Please enter the same password!");
-        } else {
-            setPasswordError2("");
-        }
-
-        const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        if (!emailRegex.test(inputValueEmail)) {
-            setEmailError("Please enter a valid email address!");
-        } else {
-            setEmailError("");
-        }
-
-        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
-        if (!passwordRegex.test(inputValuePassword)) {
-            setPasswordError("Please enter a valid password! At least 8 characters long, Contains at least one digit (0-9), Contains at least one lowercase letter (a-z), Contains at least one uppercase letter (A-Z)");
-        } else {
-            setPasswordError("");
-        }
-
-        if (InputValueFirstName==="") {
-            setFirstNameError("Please enter a First Name");
-        } else {
-            setFirstNameError("");
-        }
-
-        if (InputValueLastName==="") {
-            setLastNameError("Please enter a Last Name");
-        } else {
-            setLastNameError("");
-        }
-
-        if (inputValueUsername===/*databse*/0 ) {
-            setUsernameError("This username already exist");
-        } else {
-            setUsernameError("");
-        }
-
-    };
 
 
     return (
-        <>
-            <form class="container rounded mt-3" onSubmit={handleSubmit}>
+        <div className="mt-4 container border-0">
+            <div className="card">
+                <div className='card-header'>
+                    <h3>Création de compte:</h3>
 
-                <form>
-                    <p className='mt-2'>Sign up form</p>
-                    <label for="exampleName">Name</label>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <input type="text" class="form-control mt" placeholder="First name" value={InputValueFirstName} onChange={handleChangeFirstName}/>
+                </div>
+                <div className='card-header bg-white'>
+                    <form onSubmit={submitNewClient}>
+                        <div className="mb-3">
+                            <label className="form-label">Email</label>
+                            <input type="email"
+                                   className="form-control"
+                                   name="email"
+                                   onChange={handleChange}
+                                   value={client.email}/>
+                            {errors.email && <div className="text-danger">{errors.email}</div>}
                         </div>
-                        <div className='firstNameError'>{firstNameError}</div>
-                        <div class="col mt-2">
-                            <input type="text" class="form-control" placeholder="Last name" value={InputValueLastName} onChange={handleChangeLastName}/>
+                        <div className="mb-3">
+                            <label className="form-label">Prénom</label>
+                            <input type="text"
+                                   className="form-control"
+                                   name="first_name"
+                                   onChange={handleChange}
+                                   value={client.first_name}/>
+                            {errors.first_name && <div className="text-danger">{errors.first_name}</div>}
                         </div>
-                        <div className='lastNameError'>{lastNameError}</div>
-                    </div>
-                </form>
-
-                <div class="form-group">
-                    <label for="exampleInputUsername1">Username</label>
-                    <input type="text" class="form-control" id="exampleInputUsername1" aria-describedby="emailHelp" placeholder="Username" value={inputValueUsername} onChange={handleInputChangeUsername} />
+                        <div className="mb-3">
+                            <label className="form-label">Nom</label>
+                            <input type="text"
+                                   className="form-control"
+                                   name="last_name"
+                                   onChange={handleChange}
+                                   value={client.last_name}/>
+                            {errors.last_name && <div className="text-danger">{errors.last_name}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Nom d'utilisateur</label>
+                            <input type="text"
+                                   className="form-control"
+                                   name="username"
+                                   onChange={handleChange}
+                                   value={client.username}/>
+                            {errors.username && <div className="text-danger">{errors.username}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Mot de passe</label>
+                            <input type="password"
+                                   className="form-control"
+                                   name="passwd"
+                                   onChange={handleChange}
+                                   value={client.passwd}/>
+                            {errors.passwd && <div className="text-danger">{errors.passwd}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Confirmer le mot de passe</label>
+                            <input type="password"
+                                   className="form-control"
+                                   name="confirmPasswd"
+                                   onChange={handleChange}
+                                   value={client.confirmPasswd}/>
+                            {errors.confirmPasswd && <div className="text-danger">{errors.confirmPasswd}</div>}
+                        </div>
+                        <button className="btn btn-primary mt-3">Créer</button>
+                    </form>
                 </div>
-                <div className='usernameError'>{usernameError}</div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" value={inputValueEmail} onChange={handleInputChangeEmail} />
-                </div>
-                <div className='emailError'>{emailError}</div>
-
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={inputValuePassword} onChange={handleInputChangePassword} />
-                </div>
-                <div className='passwordError'>{passwordError}</div>
-
-                <div class="form-group">
-                    <input type="password" class="form-control mt-2" id="exampleInputPassword2" placeholder="Confirm" value={inputValuePassword2} onChange={handleInputChangePassword2} />
-                </div>
-                <div className='passwordError2'>{passwordError2}</div>
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
-
-            </form>
-
-        </>
+            </div>
+        </div>
     );
 }
 
-export default SignUp;
+export default CreateClient;

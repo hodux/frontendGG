@@ -7,7 +7,7 @@ import Footer from './Footer';
 import NotFound from './NotFound';
 import Profile from './Profile';
 import SignIn from './SignIn';
-import AddClient from './AddClient';
+import AddClient from './SignUp';
 import Recipes from './Recipes';
 import ResetPassword from './ResetPassword';
 import Catalogue from './Catalogue';

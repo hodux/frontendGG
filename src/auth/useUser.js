@@ -1,26 +1,7 @@
-import {useState, useEffect} from "react";
-import {useToken} from "./useToken";
+import { useState } from "react";
 
-export const useUser =() =>{
-    const [token] = useToken();
+export const useUser = () => {
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!sessionStorage.getItem('usernameOrEmail'));
 
-    const getPayLoadFromToken = token => {
-        const encodedPayload = token.split('.')[1];
-        return JSON.parse(atob(encodedPayload));
-    }
-
-    const [user, setUser] = useState( () =>{
-        if(!token) return null;
-        return getPayLoadFromToken(token);
-    });
-
-    useEffect( () => {
-        if(!token){
-            setUser(null);
-        }else{
-            setUser(getPayLoadFromToken(token));
-        }
-    }, [token]);
-
-    return false;
+    return isUserLoggedIn;
 }
