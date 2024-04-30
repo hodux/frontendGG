@@ -14,7 +14,7 @@ function ClientList() {
     });
 
     const getAllUsers = () => {
-        axios.get("http://localhost:7373/bob")
+        axios.get("http://localhost:7373/users")
             .then((res) => {
                 setUsers(res.data);
             })
@@ -24,7 +24,7 @@ function ClientList() {
     }
 
     const deleteUserById = (idUser) => {
-        axios.delete(`http://localhost:7373/bob/delete/${idUser}`)
+        axios.delete(`http://localhost:7373/users/delete/${idUser}`)
             .then(() => {
                 setUsers(users.filter(user => user.idUser !== idUser));
             })
@@ -34,7 +34,7 @@ function ClientList() {
     }
 
     const updateClientById = (idUser) => {
-        axios.put(`http://localhost:7373/bob/update/${idUser}`, updatedUser)
+        axios.put(`http://localhost:7373/users/update/${idUser}`, updatedUser)
             .then(() => {
                 setUsers(users.map(user => {
                     if (user.idUser === idUser) {

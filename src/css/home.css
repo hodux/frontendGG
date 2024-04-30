@@ -1,0 +1,16 @@
+#carouselExampleAutoplaying{
+    margin: auto;
+}
+
+.img{
+    height: 500px;
+    object-fit: cover;
+}
+
+.container-home {
+    border: none; 
+}
+
+body {
+    background-color: ghostwhite;
+}

@@ -62,7 +62,7 @@ function CreateClient() {
                                 if (usernameResponse.data) {
                                     setErrors({...errors, username: "Nom d'utilisateur déjà utilisé", email:""});
                                 } else {
-                                    axios.post("http://localhost:7373/crc", client)
+                                    axios.post("http://localhost:7373/addUser", client)
                                         .then((res) => {
                                             console.log("Client ajouté");
                                             navigate("/signIn");

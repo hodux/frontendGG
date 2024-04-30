@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import './catalogue.css'
+import '../css/catalogue.css'
 
 function Catalogue() {
     const [recipes, setRecipes] = useState([]);
 
     const getAllRecipes = () => {
-        axios.get("http://localhost:7373/getrec")
+        axios.get("http://localhost:7373/recettes")
             .then((res) => {
                 setRecipes(res.data);
             })

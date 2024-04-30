@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './recipeDetail.css';
+import '../css/recipeDetail.css';
 
 function RecipeDetail() {
     const [recipe, setRecipe] = useState({});
     const { recipe_ID } = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:7373/getrec/${recipe_ID}`)
+        axios.get(`http://localhost:7373/recettes/${recipe_ID}`)
             .then((res) => {
                 console.log(res);
                 setRecipe(res.data);

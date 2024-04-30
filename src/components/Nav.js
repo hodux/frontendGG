@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Grimace from './grimace.png';
+import Grimace from '../img/grimace.png';
 
 function Nav() {
     const [activePage, setActivePage] = useState(window.location.pathname);

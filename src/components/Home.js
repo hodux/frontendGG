@@ -1,7 +1,7 @@
-import food from "./food.png";
-import seafood from "./seafood.jpg";
-import noodles from "./noodles.jpg";
-import './home.css'
+import food from "../img/food.png";
+import seafood from "../img/seafood.jpg";
+import noodles from "../img/noodles.jpg";
+import '../css/home.css'
 
 function Home() {
 

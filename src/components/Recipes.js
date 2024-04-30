@@ -17,7 +17,7 @@ function Recipe() {
     });
 
     const getAllRecettes = () => {
-        axios.get("http://localhost:7373/getrec")
+        axios.get("http://localhost:7373/recettes")
             .then((res) => {
                 setRecette(res.data);
             })
@@ -27,7 +27,7 @@ function Recipe() {
     }
 
     const deleteRecetteById = (recipe_ID) => {
-        axios.delete(`http://localhost:7373/getrec/delete/${recipe_ID}`)
+        axios.delete(`http://localhost:7373/recettes/delete/${recipe_ID}`)
             .then(() => {
                 setRecette(recette.filter(recette => recette.recipe_ID !== recipe_ID));
             })
@@ -37,7 +37,7 @@ function Recipe() {
     }
 
     const updateRecetteById = (recipe_ID) => {
-        axios.put(`http://localhost:7373/getrec/update/${recipe_ID}`, updatedRecette)
+        axios.put(`http://localhost:7373/recettes/update/${recipe_ID}`, updatedRecette)
             .then(() => {
                 setRecette(recette.map(recette => {
                     if (recette.recipe_ID === recipe_ID) {

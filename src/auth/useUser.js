@@ -22,5 +22,5 @@ export const useUser =() =>{
         }
     }, [token]);
 
-    return user;
+    return false;
 }

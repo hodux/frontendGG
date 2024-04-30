@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
-import './catalogue.css';
+import '../css/catalogue.css';
 
 function Catalogue() {
     const location = useLocation();
