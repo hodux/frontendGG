@@ -43,17 +43,29 @@ function Catalogue() {
             console.log(error)
         }
 
+
+        // /getrecc/{calories}/{isvegan}/{isvegetarian}/{time}
+        //
+        // aucun - ??
+        // weight loss - calories <= 250
+        // weight gain - calories => 250
+        // diverse - ??
+        // isVegan - true true
+        // isVegetarian - false true
+        //
+        // erreur de conception sur le temps
+
         // Get corresponding recipes
-        //axios.get(`http://localhost:7373/getrec/${goal}/${time}`, {
-        //    params : {
-        //        isVegan : true,
-        //    }})
-        //   .then((res) => {
-        //        setRecipes(res.data);
-        //        console.log(res.data);
-        //    }).catch((error) => {
-        //    console.log(error);
-        //});
+        axios.get(`http://localhost:7373/getrecc/`, {
+            params : {
+                isVegan : true,
+            }})
+           .then((res) => {
+                setRecipes(res.data);
+                console.log(res.data);
+            }).catch((error) => {
+            console.log(error);
+        });
 
 
 

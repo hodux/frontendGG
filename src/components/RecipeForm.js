@@ -17,6 +17,10 @@ function RecipeForm() {
         setPreference(event.target.value);
     }
 
+    // isVegan, isVegetarian, Time, Goal
+    // 255, 1, 2, 3
+    // Query: calories, isvegan,isvegetarian,time
+
     const [goal, setGoal] = useState(0);
     const handleGoal = (event) => {
         console.log(event.target.value);
