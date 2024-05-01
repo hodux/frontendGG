@@ -12,17 +12,11 @@ function SignIn() {
         setInputValuePassword(event.target.value);
     }
 
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!sessionStorage.getItem('usernameOrEmail'));
-
     const handleSubmit = (event) => {
-        event.preventDefault(); // Prevent default form submission behavior
-
-        // Set the usernameOrEmail value in sessionStorage
+        event.preventDefault();
         sessionStorage.setItem('usernameOrEmail', inputValueEmail);
-        if (isUserLoggedIn){
-            window.location.replace("http://localhost:3333/profile");
-        }
-        // You can add more logic here, like submitting the form data to a server
+        window.location.reload();
+        window.location.href = "/profile"
     }
 
     return (

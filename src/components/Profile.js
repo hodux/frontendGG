@@ -29,7 +29,7 @@ function Profile() {
                                 <div className="col-md-4">
                                     <label className="labels">Email</label>
                                     <input type="text" className="form-control" placeholder="Email" value="" />
-                                </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
