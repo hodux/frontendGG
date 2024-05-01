@@ -26,58 +26,57 @@ function Nav() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
-                            {isUserLoggedIn && (
+                            {isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/recipes' ? 'active' : ''}`}
                                        href="/recipes" onClick={() => handleNavLinkClick('/recipes')}>Recipes</a>
                                 </li>
-                            )}
-                            {isUserLoggedIn && (
+                            ) : ''}
+                            {isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/catalogue' ? 'active' : ''}`}
                                        href="/catalogue" onClick={() => handleNavLinkClick('/catalogue')}>Catalogue</a>
                                 </li>
-                            )}
-                            {isUserLoggedIn && (
+                            ) : ''}
+                            {isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/recipeForm' ? 'active' : ''}`}
                                        href="/recipeForm" onClick={() => handleNavLinkClick('/recipeForm')}>Formulaire</a>
                                 </li>
-                            )}
-                            {isUserLoggedIn && (
+                            ) : ''}
+                            {isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/listClts' ? 'active' : ''}`}
                                        href="/listClts" onClick={() => handleNavLinkClick('/listClts')}>Clients</a>
                                 </li>
-                            )}
+                            ) : ''}
                         </ul>
                     </div>
                     <div className="collapse navbar-collapse justify-content-end" id='navbarNav'>
                         <ul className="navbar-nav">
-                            {isUserLoggedIn && (
+                            {isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/profile' ? 'active' : ''}`} href="/profile"
                                        onClick={() => handleNavLinkClick('/profile')}>Profile</a>
                                 </li>
-                            )}
-                            {!isUserLoggedIn && (
+                            ) : (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/signIn' ? 'active' : ''}`} href="/signIn"
                                        onClick={() => handleNavLinkClick('/signIn')}>Sign in</a>
                                 </li>
                             )}
-                            {!isUserLoggedIn && (
+                            {!isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/signUp' ? 'active' : ''}`} href="/signUp"
                                        onClick={() => handleNavLinkClick('/signUp')}>Sign Up</a>
                                 </li>
-                            )}
-                            {isUserLoggedIn && (
+                            ) : ''}
+                            {isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/signUp' ? 'active' : ''}`} href="/home"
                                        onClick={handleSubmit}>Déconnexion</a>
                                 </li>
-                            )}
+                            ) : ''}
                         </ul>
                     </div>
                 </div>
