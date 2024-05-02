@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 function SignIn() {
     const [inputValueEmail, setInputValueEmail] = useState("");
@@ -12,12 +13,20 @@ function SignIn() {
         setInputValuePassword(event.target.value);
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        sessionStorage.setItem('usernameOrEmail', inputValueEmail);
-        window.location.reload();
-        window.location.href = "/profile"
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.get(`http://localhost:7373/checkuser/${inputValueEmail}/${inputValuePassword}`)
+            .then((response) => {
+                if (response.data) {
+                    sessionStorage.setItem('usernameOrEmail', inputValueEmail);
+                    window.location.reload();
+                    window.location.href = "/profile";
+                } else {
+                    console.log("not found");
+                }
+            });
     }
+
 
     return (
         <>
