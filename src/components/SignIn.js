@@ -36,22 +36,22 @@ function SignIn() {
                 <div className='card-header bg-white'>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
-                            <label className="form-label">Email address or pwd</label>
+                            <label className="form-label">Email ou nom d'utilisateur</label>
                             <input type="text" className="form-control" name="email" value={inputValueEmail} onChange={handleInputChangeEmail}/>
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">Mot de passe</label>
                             <input type="password" className="form-control" name="password" value={inputValuePassword} onChange={handleInputChangePassword}/>
                         </div>
-                        <button type="submit" className="btn btn-primary mt-3">Submit</button>
+                        <button type="submit" className="btn btn-primary mt-3">Connexion</button>
                     </form>
                 </div>
                 <div className='card-footer'>
                     <div className="signup mt-2">
-                        <div>No account? <a className="signup" href="/signUp"> Sign up</a></div>
+                        <div>Pas de compe? <a className="signup" href="/signUp"> Créer un compte</a></div>
                     </div>
                     <div className="signup mt-2">
-                        <div>Forgot password? <a className="reset" href="/resetPassword">Reset password</a></div>
+                        <div>Mot de passe oublié? <a className="reset" href="/resetPassword">Réinitialiser le mot de passe</a></div>
                     </div>
                 </div>
             </div>

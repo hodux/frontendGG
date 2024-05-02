@@ -47,15 +47,15 @@ function Profile() {
                     <div className="col-md-9">
                         <div className="p-3 py-5">
                             <div className="d-flex justify-content-between align-items-center mb-3">
-                                <h4 className="text-right">Profile Settings</h4>
+                                <h4 className="text-right">Information privée</h4>
                             </div>
                             <div className="row mt-2">
                                 <div className="col-md-4">
-                                    <label className="labels">First Name</label>
+                                    <label className="labels">Prénom</label>
                                     <input type="text" className="form-control" placeholder="First Name" value={user.first_name} disabled={true}/>
                                 </div>
                                 <div className="col-md-4">
-                                    <label className="labels">Last Name</label>
+                                    <label className="labels">Nom</label>
                                     <input type="text" className="form-control" placeholder="Last Name" value={user.last_name} disabled={true}/>
                                 </div>
                                 <div className="col-md-4">

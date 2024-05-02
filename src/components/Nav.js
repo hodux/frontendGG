@@ -28,12 +28,6 @@ function Nav() {
                         <ul className="navbar-nav">
                             {isUserLoggedIn ? (
                                 <li className="nav-item">
-                                    <a className={`nav-link ${activePage === '/recipes' ? 'active' : ''}`}
-                                       href="/recipes" onClick={() => handleNavLinkClick('/recipes')}>Recipes</a>
-                                </li>
-                            ) : ''}
-                            {isUserLoggedIn ? (
-                                <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/catalogue' ? 'active' : ''}`}
                                        href="/catalogue" onClick={() => handleNavLinkClick('/catalogue')}>Catalogue</a>
                                 </li>
@@ -50,6 +44,12 @@ function Nav() {
                                        href="/listClts" onClick={() => handleNavLinkClick('/listClts')}>Clients</a>
                                 </li>
                             ) : ''}
+                            {isUserLoggedIn ? (
+                                <li className="nav-item">
+                                    <a className={`nav-link ${activePage === '/recipes' ? 'active' : ''}`}
+                                       href="/recipes" onClick={() => handleNavLinkClick('/recipes')}>Recettes</a>
+                                </li>
+                            ) : ''}
                         </ul>
                     </div>
                     <div className="collapse navbar-collapse justify-content-end" id='navbarNav'>
@@ -57,18 +57,18 @@ function Nav() {
                             {isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/profile' ? 'active' : ''}`} href="/profile"
-                                       onClick={() => handleNavLinkClick('/profile')}>Profile</a>
+                                       onClick={() => handleNavLinkClick('/profile')}>Profil</a>
                                 </li>
                             ) : (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/signIn' ? 'active' : ''}`} href="/signIn"
-                                       onClick={() => handleNavLinkClick('/signIn')}>Sign in</a>
+                                       onClick={() => handleNavLinkClick('/signIn')}>Connexion</a>
                                 </li>
                             )}
                             {!isUserLoggedIn ? (
                                 <li className="nav-item">
                                     <a className={`nav-link ${activePage === '/signUp' ? 'active' : ''}`} href="/signUp"
-                                       onClick={() => handleNavLinkClick('/signUp')}>Sign Up</a>
+                                       onClick={() => handleNavLinkClick('/signUp')}>Créer un compte</a>
                                 </li>
                             ) : ''}
                             {isUserLoggedIn ? (

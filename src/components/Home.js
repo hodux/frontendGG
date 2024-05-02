@@ -43,16 +43,9 @@ function Home() {
             </div>
 
             <div class="row mt-2">
-                <a class="col-6 text-start" href="signUp">Create your account!</a>
-                <a class="col-6 text-end" href="/signIn">Already a user?</a>
+                <a class="col-6 text-start" href="signUp">Créer votre compte!</a>
+                <a class="col-6 text-end" href="/signIn">Déjà un utilisateur?</a>
             </div>
-
-            <div class="row">
-                <div class="col-8">
-                    
-                </div>
-            </div>
-
 
             </div>
         </body>
