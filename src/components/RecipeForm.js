@@ -89,16 +89,6 @@ function RecipeForm() {
                             <div class="form-text">Nos recommandations seront adaptées à votre objectif.</div>
                             </div>
 
-                            <div class="mt-3">
-                            <label class="form-label">Temps maximum de préparation des repas.</label>
-                            <select class="form-select" aria-label="Default select example" onChange={handleTime}>
-                                <option value="0" selected>Aucun</option>
-                                <option value="1">30 minutes</option>
-                                <option value="2">60 minutes</option>
-                                <option value="3">120 minutes</option>
-                            </select>
-                            </div>
-
                             <div class="p-t-30">
                                 <button class="btn btn-primary" type="submit">Accepter</button>
                             </div>

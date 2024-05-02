@@ -28,6 +28,7 @@ function Catalogue() {
                 setIsVegetarian(true)
             } else if (preference === 2) {
                 setPreferenceDesc("strictement Végétalien")
+                setIsVegetarian(true)
                 setIsVegan(true)
             }
             if (goal === 0) {
@@ -67,7 +68,7 @@ function Catalogue() {
             }
 
             // preference
-            if (goal === 0) {
+            if (preference !== 0 && goal === 0) {
                 // Get corresponding recipes
                 axios.get(`http://localhost:7373/getrecless/${calories}/${isVegan}/${isVegetarian}`, {})
                     .then((res) => {
@@ -76,7 +77,7 @@ function Catalogue() {
                     }).catch((error) => {
                     console.log(error);
                 });
-            } else if (goal === 1) {
+            } else if (preference !== 0 && goal === 1) {
                 // Get corresponding recipes
                 axios.get(`http://localhost:7373/getrecgreat/${calories}/${isVegan}/${isVegetarian}`, {})
                     .then((res) => {
@@ -98,11 +99,12 @@ function Catalogue() {
             handleRecommendations()
         },);
 
+
         return (
-            <div className='container mt-4 container-recipes text-center p-2'>
+            <div className='container mt-4 container-recipes text-center p-2 border-0'>
                 <h2>Vous pesez {location.state.weight} lbs, vos plats seront {preferenceDesc}, vous
                     souhaitez {goalDesc} et le temps maximum par repas sera {tempsDesc}.</h2>
-                <h3 className="pt-3"><u>Voici nos recommendations!</u></h3>
+                <h3 className="pt-3 pb-3"><u>Voici nos recommendations!</u></h3>
                 <div className='row'>
                     {recipes.map((recipe) => (
                         <div className='col-lg-4 col-md-6 mb-4' key={recipe.recipe_ID}>
