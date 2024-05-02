@@ -17,14 +17,10 @@ function RecipeForm() {
         setPreference(event.target.value);
     }
 
-    // isVegan, isVegetarian, Time, Goal
-    // 255, 1, 2, 3
-    // Query: calories, isvegan,isvegetarian,time
-
     const [goal, setGoal] = useState(0);
     const handleGoal = (event) => {
         console.log(event.target.value);
-        // 0 - None, 1 - Weight loss, 2 - Weight gain
+        // 0 - Weight loss, 1 - Weight gain
         setGoal(event.target.value);
     }
 
@@ -86,9 +82,8 @@ function RecipeForm() {
                             <div class="mt-3">
                             <label class="form-label">Votre objectif à long terme.</label>
                             <select class="form-select" aria-label="Default select example" onChange={handleGoal}>
-                                <option value="0" selected>Aucun</option>
-                                <option value="1">Privilégiez les repas faibles en calories pour la perte de poids</option>
-                                <option value="2">Repas riches en calories pour prendre du poids</option>
+                                <option value="0" selected>Privilégiez les repas faibles en calories pour la perte de poids</option>
+                                <option value="1">Repas riches en calories pour prendre du poids</option>
 
                             </select>
                             <div class="form-text">Nos recommandations seront adaptées à votre objectif.</div>
