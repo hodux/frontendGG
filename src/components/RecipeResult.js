@@ -112,7 +112,7 @@ function Catalogue() {
                         souhaitez <span className="text-info">{goalDesc}</span> et le temps maximum
                         par repas sera <span className="text-info">{tempsDesc}</span>.
                     </h2>
-                    <p className="text-muted">Remarque : En raison d'une erreur de conception, la gestion du temps maximum ne sera implémenté dans le cadre du cours.</p>
+                    <p className="text-muted">Remarque : En raison d'une erreur de conception, la gestion du temps maximum ne sera pas implémenté dans le cadre du cours.</p>
                 </div>
 
                 <h3 className="pt-3 pb-3 lead">{dataDesc}</h3>
