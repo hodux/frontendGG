@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
 import '../css/catalogue.css';
+import data from "bootstrap/js/src/dom/data";
 
 function Catalogue() {
     const location = useLocation();
@@ -10,101 +11,111 @@ function Catalogue() {
     const [preferenceDesc, setPreferenceDesc] = useState("");
     const [goalDesc, setGoalDesc] = useState("");
     const [tempsDesc, setTempsDesc] = useState("");
+    const [dataDesc, setDataDesc] = useState("Voici nos recommendations!")
     // Query params
     const [calories, setCalories] = useState(400);
     const [isVegan, setIsVegan] = useState(false);
     const [isVegetarian, setIsVegetarian] = useState(false);
 
+    function handleDataDesc(arg1, arg2) {
+        if (arg1 && arg2 > 0) {
+            setDataDesc("Voici nos recommendations!");
+        } else {
+            setDataDesc("Nous n'avons trouvé aucune recette répondant à vos critères. Désolé !");
+        }
+    }
+    function handleAxiosGet(request) {
+        axios.get(request, {})
+            .then((res) => {
+                setRecipes(res.data);
+                handleDataDesc(res.data, res.data.length)
+            }).catch((error) => {
+            console.log(error);
+        });
+    }
     function handleRecommendations() {
         // Create User Description and Query params
         try {
             const preference = parseInt(location.state.preference)
             const goal = parseInt(location.state.goal)
             const time = parseInt(location.state.time)
-            if (preference === 0) {
-                setPreferenceDesc("diverse")
-            } else if (preference === 1) {
-                setPreferenceDesc("strictement Végétarien")
-                setIsVegetarian(true)
-            } else if (preference === 2) {
-                setPreferenceDesc("strictement Végétalien")
-                setIsVegetarian(true)
-                setIsVegan(true)
+
+            switch (preference) {
+                case 0:
+                    setPreferenceDesc("diverse")
+                    break
+                case 1:
+                    setPreferenceDesc("strictement végétariens")
+                    setIsVegetarian(true)
+                    break
+                case 2:
+                    setPreferenceDesc("strictement végétaliens")
+                    setIsVegetarian(true)
+                    setIsVegan(true)
+                    break
             }
-            if (goal === 0) {
-                setGoalDesc("perdre du poids")
-            } else if (goal === 1) {
-                setGoalDesc("obtenir du poids")
+            switch (goal) {
+                case 0:
+                    setGoalDesc("perdre du poids")
+                    break
+                case 1:
+                    setGoalDesc("obtenir du poids")
+                    break
             }
-            if (time === 0) {
-                setTempsDesc("sans importance")
-            } else if (time === 1) {
-                setTempsDesc("30 minutes")
-            } else if (time === 2) {
-                setTempsDesc("60 minutes")
-            } else if (time === 3) {
-                setTempsDesc("120 minutes")
+            switch (time) {
+                case 0:
+                    setTempsDesc("sans importance")
+                    break
+                case 1:
+                    setTempsDesc("30 minutes")
+                    break
+                case 2:
+                    setTempsDesc("60 minutes")
+                    break
+                case 3:
+                    setTempsDesc("120 minutes")
+                    break
             }
 
             ////////// Conditions //////////
 
             // no preference
             if (preference === 0 && goal === 0) {
-                axios.get(`http://localhost:7373/getreclessnopref/${calories}`, {})
-                    .then((res) => {
-                        setRecipes(res.data);
-                        console.log(res.data);
-                    }).catch((error) => {
-                    console.log(error);
-                });
+                handleAxiosGet(`http://localhost:7373/getreclessnopref/${calories}`)
             } else if (preference === 0 && goal === 1) {
-                axios.get(`http://localhost:7373/getrecgreatnopref/${calories}`, {})
-                    .then((res) => {
-                        setRecipes(res.data);
-                        console.log(res.data);
-                    }).catch((error) => {
-                    console.log(error);
-                });
+                handleAxiosGet(`http://localhost:7373/getrecgreatnopref/${calories}`)
             }
 
-            // preference
+            // vegetarian or vegan
             if (preference !== 0 && goal === 0) {
-                // Get corresponding recipes
-                axios.get(`http://localhost:7373/getrecless/${calories}/${isVegan}/${isVegetarian}`, {})
-                    .then((res) => {
-                        setRecipes(res.data);
-                        console.log(res.data);
-                    }).catch((error) => {
-                    console.log(error);
-                });
+                handleAxiosGet(`http://localhost:7373/getrecless/${calories}/${isVegan}/${isVegetarian}`)
             } else if (preference !== 0 && goal === 1) {
-                // Get corresponding recipes
-                axios.get(`http://localhost:7373/getrecgreat/${calories}/${isVegan}/${isVegetarian}`, {})
-                    .then((res) => {
-                        setRecipes(res.data);
-                        console.log(res.data);
-                    }).catch((error) => {
-                    console.log(error);
-                });
+                handleAxiosGet(`http://localhost:7373/getrecgreat/${calories}/${isVegan}/${isVegetarian}`)
             }
 
             //////////  //////////
 
         } catch (error) {
             console.log(error)
-        }
-        }
+        }}
 
         useEffect(() => {
             handleRecommendations()
         },);
 
-
         return (
             <div className='container mt-4 container-recipes text-center p-2 border-0'>
-                <h2>Vous pesez {location.state.weight} lbs, vos plats seront {preferenceDesc}, vous
-                    souhaitez {goalDesc} et le temps maximum par repas sera {tempsDesc}.</h2>
-                <h3 className="pt-3 pb-3"><u>Voici nos recommendations!</u></h3>
+                <div>
+                    <h2>
+                        Vous pesez <span className="text-info">{location.state.weight} lbs</span>,
+                        vos plats seront <span className="text-info">{preferenceDesc}</span>, vous
+                        souhaitez <span className="text-info">{goalDesc}</span> et le temps maximum
+                        par repas sera <span className="text-info">{tempsDesc}</span>.
+                    </h2>
+                    <p className="text-muted">Remarque : En raison d'une erreur de conception, la gestion du temps maximum ne sera implémenté dans le cadre du cours.</p>
+                </div>
+
+                <h3 className="pt-3 pb-3 lead">{dataDesc}</h3>
                 <div className='row'>
                     {recipes.map((recipe) => (
                         <div className='col-lg-4 col-md-6 mb-4' key={recipe.recipe_ID}>
@@ -126,6 +137,6 @@ function Catalogue() {
                 </div>
             </div>
         );
-    }
+}
 
 export default Catalogue;
